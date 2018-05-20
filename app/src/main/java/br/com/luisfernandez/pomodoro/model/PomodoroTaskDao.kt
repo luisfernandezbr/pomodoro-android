@@ -8,7 +8,7 @@ import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 @Dao
 interface PomodoroTaskDao {
 
-    @Query("SELECT * FROM PomodoroTask")
+    @Query("SELECT * FROM PomodoroTask ORDER BY finished_date_time DESC")
     fun getAll(): List<PomodoroTask>
 
     @Insert
