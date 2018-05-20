@@ -11,17 +11,17 @@ import android.widget.Toast
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 
-class HomeFragment : Fragment() {
+class PomodoroTaskListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = PomodoroTaskListFragment()
     }
 
     private lateinit var viewModel: PomodoroTaskViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.pomodoro_task_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
