@@ -14,6 +14,7 @@ import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
 import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
+import org.jetbrains.anko.textColor
 import java.util.*
 
 class PomodoroTaskFragment : Fragment() {
@@ -43,6 +44,7 @@ class PomodoroTaskFragment : Fragment() {
             timer?.cancel()
             timer = null
             textTimer.text = "01:00"
+            textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
             viewModel.insertPomodoroTask(
                     PomodoroTask(
                             taskDuration = currentCount,
@@ -57,6 +59,7 @@ class PomodoroTaskFragment : Fragment() {
         timer = object: CountDownTimer(Pomodoro.POMODORO_TIME_IN_MILLIS, Pomodoro.TIMER_COUNT_INTERVAL) {
             override fun onFinish() {
                 textTimer.text = "01:00"
+                textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
                 viewModel.insertPomodoroTask(
                         PomodoroTask(
                                 taskDuration = Pomodoro.POMODORO_TIME_IN_MILLIS,
@@ -74,6 +77,7 @@ class PomodoroTaskFragment : Fragment() {
             }
         }
         timer?.start()
+        textTimer.textColor = resources.getColor(R.color.color_text_timer_running)
     }
 
 }
