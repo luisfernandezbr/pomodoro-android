@@ -25,32 +25,27 @@ class PomodoroTaskViewModel : ViewModel() {
                 ?.pomodoroTaskDao()
 
         doAsync {
-            var result = pomodoroTaskDao?.getAll()
+            val result = pomodoroTaskDao?.getAll()
 
-            /**
-             *  holder.textTime.text = Pomodoro.getFormattedTime(item.taskDuration)
-            holder.textStatus.text = if (item.taskDuration == Pomodoro.POMODORO_TIME_IN_MILLIS) "Finished" else "Stopped"
-            holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(item.finishedDateTime)
+            val list: MutableList<ItemList> = ArrayList()
 
-             */
+            var lastDate: String? = null
 
-
-
-            var list: MutableList<ItemList> = ArrayList()
-
-            val itemListTitle = ItemListTitle()
-            itemListTitle.title = "TestTitle"
-
-            list.add(itemListTitle)
             for (pomodoroTask in result!!) {
-
-
-
-
                 val itemListContent = ItemListContent()
                 itemListContent.elapsedTime = Pomodoro.getFormattedTime(pomodoroTask.taskDuration)
                 itemListContent.status = if (pomodoroTask.taskDuration == Pomodoro.POMODORO_TIME_IN_MILLIS) "Finished" else "Stopped"
                 itemListContent.finishedDate = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(pomodoroTask.finishedDateTime)
+
+                var date = SimpleDateFormat("dd/MM/yyyy HH", Locale.getDefault()).format(pomodoroTask.finishedDateTime)
+
+                if (lastDate == null || lastDate != date) {
+                    val itemListTitle = ItemListTitle()
+                    itemListTitle.title = date
+
+                    list.add(itemListTitle)
+                    lastDate = date
+                }
 
                 list.add(itemListContent)
             }
