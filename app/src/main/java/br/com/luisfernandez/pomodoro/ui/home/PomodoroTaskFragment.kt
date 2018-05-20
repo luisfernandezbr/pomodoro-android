@@ -4,13 +4,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatTextView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import br.com.luisfernandez.pomodoro.PomodoroConfig
+import br.com.luisfernandez.pomodoro.Pomodoro
 
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
@@ -56,12 +54,12 @@ class PomodoroTaskFragment : Fragment() {
 
     fun startCountDownTimer() {
 
-        timer = object: CountDownTimer(PomodoroConfig.POMODORO_TIME_IN_MILLIS, PomodoroConfig.TIMER_COUNT_INTERVAL) {
+        timer = object: CountDownTimer(Pomodoro.POMODORO_TIME_IN_MILLIS, Pomodoro.TIMER_COUNT_INTERVAL) {
             override fun onFinish() {
                 textTimer.text = "01:00"
                 viewModel.insertPomodoroTask(
                         PomodoroTask(
-                                taskDuration = PomodoroConfig.POMODORO_TIME_IN_MILLIS,
+                                taskDuration = Pomodoro.POMODORO_TIME_IN_MILLIS,
                                 finishedDateTime = Date()
                         )
                 )
@@ -69,10 +67,7 @@ class PomodoroTaskFragment : Fragment() {
 
             override fun onTick(milliSeconds: Long) {
                 currentCount = milliSeconds
-                val timeInText = String.format("%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(milliSeconds),
-                        TimeUnit.MILLISECONDS.toSeconds(milliSeconds) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSeconds)))
+                val timeInText = Pomodoro.getFormattedTime(milliSeconds)
 
                 Log.d("", timeInText)
                 textTimer.text = timeInText
