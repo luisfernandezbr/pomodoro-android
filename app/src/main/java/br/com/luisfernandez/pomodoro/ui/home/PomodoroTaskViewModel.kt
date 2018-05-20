@@ -8,6 +8,8 @@ import br.com.luisfernandez.pomodoro.AppApplication
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import br.com.luisfernandez.pomodoro.repo.AppDatabase
 import br.com.luisfernandez.pomodoro.repo.PomodoroTaskDao
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class PomodoroTaskViewModel : ViewModel() {
 
@@ -18,17 +20,6 @@ class PomodoroTaskViewModel : ViewModel() {
                 .getInstance(AppApplication.context)
                 ?.pomodoroTaskDao()
 
-
-
-        Thread(
-                object :Runnable {
-                    override fun run() {
-                        val all = pomodoroTaskDao?.getAll()
-                        pomodoroTaskList.value = all
-                    }
-
-                }
-        ).start()
 //        pomodoroTaskDao
 //                ?.insertAll(
 //                        PomodoroTask(
@@ -37,20 +28,13 @@ class PomodoroTaskViewModel : ViewModel() {
 //                        )
 //                )
 
-
+        doAsync {
+            var result = pomodoroTaskDao?.getAll()
+            uiThread {
+                pomodoroTaskList.value = result
+            }
+        }
 
         return pomodoroTaskList
-    }
-
-    internal class MyAsyncTask(val pomodoroTaskDao: PomodoroTaskDao) : AsyncTask<Void, Void, List<PomodoroTask>>() {
-
-        override fun doInBackground(vararg voids: Void): List<PomodoroTask>? {
-            return pomodoroTaskDao?.getAll()
-        }
-
-        override fun onPostExecute(pomodoroTasks: List<PomodoroTask>) {
-            super.onPostExecute(pomodoroTasks)
-
-        }
     }
 }
