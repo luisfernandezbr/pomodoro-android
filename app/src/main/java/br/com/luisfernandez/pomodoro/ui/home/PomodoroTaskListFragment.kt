@@ -5,11 +5,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import br.com.luisfernandez.pomodoro.PomodoroTaskListAdapter
 import br.com.luisfernandez.pomodoro.R
+import br.com.luisfernandez.pomodoro.R.id.recyclerView
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import kotlinx.android.synthetic.main.pomodoro_task_list_fragment.*
 
@@ -20,15 +23,18 @@ class PomodoroTaskListFragment : Fragment() {
     }
 
     private lateinit var viewModel: PomodoroTaskViewModel
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.pomodoro_task_list_fragment, container, false)
 
         val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.recyclerView)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = PomodoroTaskListAdapter()
 
         return view
     }
@@ -46,5 +52,8 @@ class PomodoroTaskListFragment : Fragment() {
 
     fun showContent(pomodoroTaskList: List<PomodoroTask>?) {
         Toast.makeText(context, "asdasd", Toast.LENGTH_LONG).show()
+        pomodoroTaskList?.let {
+            (recyclerView.adapter as PomodoroTaskListAdapter).add(it)
+        }
     }
 }
