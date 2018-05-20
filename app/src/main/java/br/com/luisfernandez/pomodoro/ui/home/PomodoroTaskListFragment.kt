@@ -50,7 +50,6 @@ class PomodoroTaskListFragment : Fragment() {
     }
 
     fun showContent(pomodoroTaskList: List<ItemList>?) {
-        Toast.makeText(context, "asdasd", Toast.LENGTH_LONG).show()
         pomodoroTaskList?.let {
             (recyclerView.adapter as PomodoroTaskListAdapter).add(it)
         }

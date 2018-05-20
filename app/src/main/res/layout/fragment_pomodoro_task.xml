@@ -5,27 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="40dp"
-    android:paddingTop="80dp"
     tools:context=".ui.home.PomodoroTaskFragment">
-
-    <Button
-        android:id="@+id/buttonAddPomodoro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Add new Pomodoro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <Button
-        android:id="@+id/buttonStopPomodoro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop Pomodoro"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textTimer"
@@ -33,12 +13,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textStyle="bold"
         android:text="01:00"
         android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_text_timer_disabled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabPlayStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@color/colorAccent"
+        android:src="@android:drawable/ic_media_play"
+        android:tag="PLAY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

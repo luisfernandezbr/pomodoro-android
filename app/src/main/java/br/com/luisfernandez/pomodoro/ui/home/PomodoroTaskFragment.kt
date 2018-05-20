@@ -14,6 +14,7 @@ import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
 import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
+import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.textColor
 import java.util.*
 
@@ -36,21 +37,28 @@ class PomodoroTaskFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PomodoroTaskViewModel::class.java)
 
-        buttonAddPomodoro.setOnClickListener { view: View? ->
-            startCountDownTimer()
-        }
-
-        buttonStopPomodoro.setOnClickListener { view: View? ->
-            timer?.cancel()
-            timer = null
-            textTimer.text = "01:00"
-            textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
-            viewModel.insertPomodoroTask(
-                    PomodoroTask(
-                            taskDuration = currentCount,
-                            finishedDateTime = Date()
+        fabPlayStop.setOnClickListener { view: View ->
+            when(view.tag) {
+                "PLAY" -> {
+                    startCountDownTimer()
+                    fabPlayStop.tag = "STOP"
+                    fabPlayStop.setImageResource(android.R.drawable.ic_media_pause)
+                }
+                else -> {
+                    timer?.cancel()
+                    timer = null
+                    textTimer.text = "01:00"
+                    textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
+                    viewModel.insertPomodoroTask(
+                            PomodoroTask(
+                                    taskDuration = currentCount,
+                                    finishedDateTime = Date()
+                            )
                     )
-            )
+                    fabPlayStop.tag = "PLAY"
+                    fabPlayStop.setImageResource(android.R.drawable.ic_media_play)
+                }
+            }
         }
     }
 

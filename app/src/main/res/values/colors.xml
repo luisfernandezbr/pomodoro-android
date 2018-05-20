@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#F93D44</color>
     <color name="colorPrimaryDark">#F93D44</color>
-    <color name="colorAccent">#F93D44</color>
+    <color name="colorAccent">#f93d44</color>
 
     <color name="color_text_timer_disabled">#A0A0A0</color>
     <color name="color_text_timer_running">@color/colorPrimary</color>
