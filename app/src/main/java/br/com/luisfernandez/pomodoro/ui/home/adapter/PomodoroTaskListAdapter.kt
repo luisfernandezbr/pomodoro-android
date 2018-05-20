@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import br.com.luisfernandez.pomodoro.PomodoroConfig
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class PomodoroTaskListAdapter: RecyclerView.Adapter<PomodoroTaskListAdapter.PomodoroTaskVH>() {
 
@@ -26,8 +28,11 @@ class PomodoroTaskListAdapter: RecyclerView.Adapter<PomodoroTaskListAdapter.Pomo
     override fun onBindViewHolder(holder: PomodoroTaskVH, position: Int) {
         var item = pomodoroTaskList[position]
 
-        holder.textTime.text = item.taskDuration.toString()
-        holder.textStatus.text = if (item.taskDuration > 80000) "Finished" else "Stopped"
+        holder.textTime.text = String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(item.taskDuration),
+                TimeUnit.MILLISECONDS.toSeconds(item.taskDuration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(item.taskDuration)))
+        holder.textStatus.text = if (item.taskDuration == PomodoroConfig.POMODORO_TIME_IN_MILLIS) "Finished" else "Stopped"
         holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(item.finishedDateTime)
     }
 

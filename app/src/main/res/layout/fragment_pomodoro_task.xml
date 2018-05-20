@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="40dp"
     android:paddingTop="80dp"
     tools:context=".ui.home.PomodoroTaskFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
 
     <Button
         android:id="@+id/buttonAddPomodoro"
@@ -18,4 +14,19 @@
         android:layout_height="wrap_content"
         android:text="Add new Pomodoro"/>
 
-</FrameLayout>
+
+    <Button
+        android:id="@+id/buttonStopPomodoro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Pomodoro"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/textTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="26sp"
+        android:text="01:00"/>
+
+</LinearLayout>
