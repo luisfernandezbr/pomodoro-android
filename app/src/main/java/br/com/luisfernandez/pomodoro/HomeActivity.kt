@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
+import br.com.luisfernandez.pomodoro.ui.home.PomodoroTaskFragment
 import br.com.luisfernandez.pomodoro.ui.home.PomodoroTaskListFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -39,7 +40,7 @@ class Adapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentM
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> PomodoroTaskListFragment.newInstance()
+            0 -> PomodoroTaskFragment.newInstance()
             else -> PomodoroTaskListFragment.newInstance()
         }
     }

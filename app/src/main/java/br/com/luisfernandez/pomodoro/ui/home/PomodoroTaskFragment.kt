@@ -1,41 +1,44 @@
 package br.com.luisfernandez.pomodoro.ui.home
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
+import kotlinx.android.synthetic.main.pomodoro_task_fragment.*
+import java.util.*
 
-class PomodoroTaskListFragment : Fragment() {
+class PomodoroTaskFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PomodoroTaskListFragment()
+        fun newInstance() = PomodoroTaskFragment()
     }
 
     private lateinit var viewModel: PomodoroTaskViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.pomodoro_task_list_fragment, container, false)
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.pomodoro_task_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PomodoroTaskViewModel::class.java)
 
-        val observer = Observer<List<PomodoroTask>> { t: List<PomodoroTask>? ->
-            showContent(t)
+
+
+        buttonAddPomodoro.setOnClickListener { view: View? ->
+            viewModel.insertPomodoroTask(
+                    PomodoroTask(
+                            taskDuration = (Random().nextInt(55000 - 2000) + 55000).toLong(),
+                            finishedDateTime = Date().toString()
+                    )
+            )
         }
-
-        viewModel.loadPomodoroTaskList().observe(this, observer)
     }
 
-    fun showContent(pomodoroTaskList: List<PomodoroTask>?) {
-        Toast.makeText(context, "asdasd", Toast.LENGTH_LONG).show()
-    }
 }

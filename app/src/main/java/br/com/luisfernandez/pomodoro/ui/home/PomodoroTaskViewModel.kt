@@ -10,6 +10,7 @@ import br.com.luisfernandez.pomodoro.repo.AppDatabase
 import br.com.luisfernandez.pomodoro.repo.PomodoroTaskDao
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.util.*
 
 class PomodoroTaskViewModel : ViewModel() {
 
@@ -20,14 +21,6 @@ class PomodoroTaskViewModel : ViewModel() {
                 .getInstance(AppApplication.context)
                 ?.pomodoroTaskDao()
 
-//        pomodoroTaskDao
-//                ?.insertAll(
-//                        PomodoroTask(
-//                                taskDuration = 5000,
-//                                finishedDateTime = Date().toString()
-//                        )
-//                )
-
         doAsync {
             var result = pomodoroTaskDao?.getAll()
             uiThread {
@@ -36,5 +29,19 @@ class PomodoroTaskViewModel : ViewModel() {
         }
 
         return pomodoroTaskList
+    }
+
+    fun insertPomodoroTask(pomodoroTask: PomodoroTask) {
+        doAsync {
+            val pomodoroTaskDao = AppDatabase
+                    .getInstance(AppApplication.context)
+                    ?.pomodoroTaskDao()
+            pomodoroTaskDao
+                    ?.insertAll(
+                            pomodoroTask
+                    )
+        }
+
+
     }
 }

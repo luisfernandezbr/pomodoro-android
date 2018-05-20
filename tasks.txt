@@ -1,4 +1,4 @@
 - Create entity model
 - Add Room library on project
 - Populate mock data to test Room
--
+- Create two Fragments
