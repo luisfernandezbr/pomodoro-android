@@ -35,7 +35,7 @@ class PomodoroTaskFragment : Fragment() {
             viewModel.insertPomodoroTask(
                     PomodoroTask(
                             taskDuration = (Random().nextInt(55000 - 2000) + 55000).toLong(),
-                            finishedDateTime = Date().toString()
+                            finishedDateTime = Date()
                     )
             )
         }

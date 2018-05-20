@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PomodoroTaskListAdapter: RecyclerView.Adapter<PomodoroTaskListAdapter.PomodoroTaskVH>() {
 
@@ -22,10 +24,10 @@ class PomodoroTaskListAdapter: RecyclerView.Adapter<PomodoroTaskListAdapter.Pomo
 
     override fun onBindViewHolder(holder: PomodoroTaskVH, position: Int) {
         var item = pomodoroTaskList[position]
+
         holder.textTime.text = item.taskDuration.toString()
         holder.textStatus.text = if (item.taskDuration > 80000) "Finished" else "Stopped"
-        holder.textDate.text = item.finishedDateTime
-
+        holder.textDate.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(item.finishedDateTime)
     }
 
     fun add(pomodoroTaskList: List<PomodoroTask>) {
