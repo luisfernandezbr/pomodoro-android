@@ -1,14 +1,12 @@
-package br.com.luisfernandez.pomodoro
+package br.com.luisfernandez.pomodoro.ui.home
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
-import br.com.luisfernandez.pomodoro.ui.home.PomodoroTaskFragment
-import br.com.luisfernandez.pomodoro.ui.home.PomodoroTaskListFragment
+import br.com.luisfernandez.pomodoro.R
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {

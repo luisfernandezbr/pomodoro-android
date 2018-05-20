@@ -1,4 +1,4 @@
-package br.com.luisfernandez.pomodoro.repo.db
+package br.com.luisfernandez.pomodoro.model.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
-import br.com.luisfernandez.pomodoro.repo.PomodoroTaskDao
+import br.com.luisfernandez.pomodoro.model.PomodoroTaskDao
 
 @Database(entities = arrayOf(PomodoroTask::class), version = 1)
 @TypeConverters(DateConverter::class)

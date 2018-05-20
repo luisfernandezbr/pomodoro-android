@@ -1,4 +1,4 @@
-package br.com.luisfernandez.pomodoro.repo.db
+package br.com.luisfernandez.pomodoro.model.db
 
 import android.arch.persistence.room.TypeConverter
 import java.util.*

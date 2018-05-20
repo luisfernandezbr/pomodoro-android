@@ -1,4 +1,4 @@
-package br.com.luisfernandez.pomodoro
+package br.com.luisfernandez.pomodoro.android
 
 import android.app.Application
 

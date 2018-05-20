@@ -1,10 +1,11 @@
-package br.com.luisfernandez.pomodoro
+package br.com.luisfernandez.pomodoro.ui.home.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import java.text.SimpleDateFormat
 import java.util.*

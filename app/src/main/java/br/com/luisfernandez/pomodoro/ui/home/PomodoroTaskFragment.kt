@@ -9,7 +9,7 @@ import android.view.ViewGroup
 
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
-import kotlinx.android.synthetic.main.pomodoro_task_fragment.*
+import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
 import java.util.*
 
 class PomodoroTaskFragment : Fragment() {
@@ -22,7 +22,7 @@ class PomodoroTaskFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.pomodoro_task_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_pomodoro_task, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
