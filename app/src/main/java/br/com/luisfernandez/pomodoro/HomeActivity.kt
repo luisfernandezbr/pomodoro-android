@@ -22,10 +22,6 @@ class HomeActivity : AppCompatActivity() {
                 viewPager.currentItem = 1
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
-                viewPager.currentItem = 2
-                return@OnNavigationItemSelectedListener true
-            }
         }
         false
     }
@@ -44,12 +40,11 @@ class Adapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentM
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> PomodoroTaskListFragment.newInstance()
-            1 -> PomodoroTaskListFragment.newInstance()
             else -> PomodoroTaskListFragment.newInstance()
         }
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 }
