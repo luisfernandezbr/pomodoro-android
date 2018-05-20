@@ -4,7 +4,6 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="60dp"
     tools:context=".ui.home.PomodoroTaskListFragment">
 
     <android.support.v7.widget.RecyclerView
