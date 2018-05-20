@@ -13,6 +13,7 @@ import android.widget.Toast
 import br.com.luisfernandez.pomodoro.ui.home.adapter.PomodoroTaskListAdapter
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
+import br.com.luisfernandez.pomodoro.ui.home.pojo.ItemList
 
 class PomodoroTaskListFragment : Fragment() {
 
@@ -41,14 +42,14 @@ class PomodoroTaskListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PomodoroTaskViewModel::class.java)
 
-        val observer = Observer<List<PomodoroTask>> { t: List<PomodoroTask>? ->
-            showContent(t)
+        val observer = Observer<List<ItemList>> { list: List<ItemList>? ->
+            showContent(list)
         }
 
         viewModel.loadPomodoroTaskList().observe(this, observer)
     }
 
-    fun showContent(pomodoroTaskList: List<PomodoroTask>?) {
+    fun showContent(pomodoroTaskList: List<ItemList>?) {
         Toast.makeText(context, "asdasd", Toast.LENGTH_LONG).show()
         pomodoroTaskList?.let {
             (recyclerView.adapter as PomodoroTaskListAdapter).add(it)
