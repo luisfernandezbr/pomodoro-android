@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import br.com.luisfernandez.pomodoro.ui.home.adapter.PomodoroTaskListAdapter
 import br.com.luisfernandez.pomodoro.R
-import br.com.luisfernandez.pomodoro.entity.PomodoroTask
 import br.com.luisfernandez.pomodoro.ui.home.pojo.ItemList
+import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
 
 class PomodoroTaskListFragment : Fragment() {
 

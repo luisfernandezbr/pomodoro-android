@@ -12,9 +12,9 @@ import br.com.luisfernandez.pomodoro.Pomodoro
 
 import br.com.luisfernandez.pomodoro.R
 import br.com.luisfernandez.pomodoro.entity.PomodoroTask
+import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
 import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class PomodoroTaskFragment : Fragment() {
 

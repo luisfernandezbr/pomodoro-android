@@ -1,4 +1,4 @@
-package br.com.luisfernandez.pomodoro.ui.home
+package br.com.luisfernandez.pomodoro.ui.home.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
