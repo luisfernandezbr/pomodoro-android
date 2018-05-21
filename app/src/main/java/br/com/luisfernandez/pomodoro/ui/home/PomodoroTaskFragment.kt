@@ -51,7 +51,7 @@ class PomodoroTaskFragment : Fragment() {
                     textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
                     viewModel.insertPomodoroTask(
                             PomodoroTask(
-                                    taskDuration = currentCount,
+                                    taskDuration = Pomodoro.POMODORO_TIME_IN_MILLIS - currentCount,
                                     finishedDateTime = Date()
                             )
                     )
