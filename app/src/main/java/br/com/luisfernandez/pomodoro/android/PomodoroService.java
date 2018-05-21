@@ -38,6 +38,10 @@ public class PomodoroService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
     @Override
@@ -84,6 +88,7 @@ public class PomodoroService extends Service {
                 Log.d(TAG, "onFinish: ");
                 Intent intent = new Intent(ACTION_ON_FINISH);
                 sendBroadcast(intent);
+                stopSelf();
             }
         };
     }
@@ -95,6 +100,6 @@ public class PomodoroService extends Service {
         countDownTimer.start();
 
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 }

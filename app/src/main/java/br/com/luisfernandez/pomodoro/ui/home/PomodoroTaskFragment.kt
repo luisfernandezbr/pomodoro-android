@@ -24,6 +24,7 @@ import android.content.IntentFilter
 import br.com.luisfernandez.pomodoro.android.PomodoroService
 import br.com.luisfernandez.pomodoro.android.PomodoroService.ACTION_ON_FINISH
 import br.com.luisfernandez.pomodoro.android.PomodoroService.ACTION_ON_TICK
+import org.jetbrains.anko.support.v4.stopService
 
 
 class PomodoroTaskFragment : Fragment() {
@@ -35,7 +36,6 @@ class PomodoroTaskFragment : Fragment() {
     lateinit var broadcastReceiver: BroadcastReceiver
 
     private lateinit var viewModel: PomodoroTaskViewModel
-    private var timer: CountDownTimer? = null
     private var currentCount = 0L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +47,6 @@ class PomodoroTaskFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PomodoroTaskViewModel::class.java)
 
-        initBroadcastReceiver()
-
         fabPlayStop.setOnClickListener { view: View ->
             when(view.tag) {
                 "PLAY" -> {
@@ -57,8 +55,6 @@ class PomodoroTaskFragment : Fragment() {
                     fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
                 }
                 else -> {
-                    timer?.cancel()
-                    timer = null
                     textTimer.text = "01:00"
                     textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
                     viewModel.insertPomodoroTask(
@@ -69,9 +65,16 @@ class PomodoroTaskFragment : Fragment() {
                     )
                     fabPlayStop.tag = "PLAY"
                     fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
+                    val intent = Intent(activity, PomodoroService::class.java)
+                    activity?.stopService(intent)
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initBroadcastReceiver()
     }
 
     private fun initBroadcastReceiver() {
@@ -114,10 +117,8 @@ class PomodoroTaskFragment : Fragment() {
         textTimer.textColor = resources.getColor(R.color.color_text_timer_running)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (timer != null) {
-            timer!!.cancel()
-        }
+    override fun onPause() {
+        super.onPause()
+        activity?.unregisterReceiver(broadcastReceiver)
     }
 }
