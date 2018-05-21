@@ -59,7 +59,7 @@ class PomodoroTaskFragment : Fragment() {
 
     private fun setStoppedState() {
         textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
-        textTimer.text = "01:00"
+        textTimer.text = "25:00"
         fabPlayStop.tag = "PLAY"
         fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
     }
