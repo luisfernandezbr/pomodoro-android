@@ -65,8 +65,7 @@ class PomodoroTaskFragment : Fragment() {
                     )
                     fabPlayStop.tag = "PLAY"
                     fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
-                    val intent = Intent(activity, PomodoroService::class.java)
-                    activity?.stopService(intent)
+                    PomodoroService.stop(context)
                 }
             }
         }
@@ -112,8 +111,7 @@ class PomodoroTaskFragment : Fragment() {
     }
 
     fun startCountDownTimer() {
-        val intent = Intent(activity, PomodoroService::class.java)
-        activity!!.startService(intent)
+        PomodoroService.start(context)
         textTimer.textColor = resources.getColor(R.color.color_text_timer_running)
     }
 

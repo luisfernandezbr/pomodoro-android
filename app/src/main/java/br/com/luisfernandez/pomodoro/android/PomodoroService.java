@@ -2,6 +2,7 @@ package br.com.luisfernandez.pomodoro.android;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -17,6 +18,16 @@ public class PomodoroService extends Service {
     public static final String TAG = "PomodoroService";
     public static final String ACTION_ON_TICK = "br.com.luisfernandez.pomodoro.ON_TICK";
     public static final String ACTION_ON_FINISH = "br.com.luisfernandez.pomodoro.ON_FINISH";
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, PomodoroService.class);
+        context.startService(intent);
+    }
+
+    public static void stop(Context context) {
+        Intent intent = new Intent(context, PomodoroService.class);
+        context.stopService(intent);
+    }
 
     public PomodoroService() {
     }
