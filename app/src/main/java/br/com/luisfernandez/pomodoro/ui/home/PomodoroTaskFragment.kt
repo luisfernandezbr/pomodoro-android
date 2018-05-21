@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,24 +46,31 @@ class PomodoroTaskFragment : Fragment() {
             when(view.tag) {
                 "PLAY" -> {
                     startCountDownTimer()
-                    fabPlayStop.tag = "STOP"
-                    fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
+                    setPlayingState()
                 }
                 else -> {
-                    textTimer.text = "01:00"
-                    textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
-                    viewModel.insertPomodoroTask(
-                            PomodoroTask(
-                                    taskDuration = Pomodoro.POMODORO_TIME_IN_MILLIS - currentCount,
-                                    finishedDateTime = Date()
-                            )
-                    )
-                    fabPlayStop.tag = "PLAY"
-                    fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
+                    savePomodoroTask(Pomodoro.POMODORO_TIME_IN_MILLIS - currentCount)
+                    setStoppedState()
                     PomodoroService.stop(context)
                 }
             }
         }
+    }
+
+    private fun setStoppedState() {
+        textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
+        textTimer.text = "01:00"
+        fabPlayStop.tag = "PLAY"
+        fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
+    }
+
+    private fun savePomodoroTask(taskDuration: Long) {
+        viewModel.insertPomodoroTask(
+                PomodoroTask(
+                        taskDuration = taskDuration,
+                        finishedDateTime = Date()
+                )
+        )
     }
 
     override fun onResume() {
@@ -82,30 +88,26 @@ class PomodoroTaskFragment : Fragment() {
                 when (intent.action) {
                     ACTION_ON_TICK -> {
                         val current = intent.getLongExtra("current_time", 0)
-                        currentCount = current
                         val timeInText = Pomodoro.getFormattedTime(current)
-
-                        Log.d("", timeInText)
                         textTimer.text = timeInText
-                        fabPlayStop.tag = "STOP"
-                        fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
+
+                        currentCount = current
+                        
+                        setPlayingState()
                     }
                     ACTION_ON_FINISH -> {
-                        textTimer.text = "01:00"
-                        textTimer.textColor = resources.getColor(R.color.color_text_timer_disabled)
-                        viewModel.insertPomodoroTask(
-                                PomodoroTask(
-                                        taskDuration = Pomodoro.POMODORO_TIME_IN_MILLIS,
-                                        finishedDateTime = Date()
-                                )
-                        )
-                        fabPlayStop.tag = "PLAY"
-                        fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
+                        savePomodoroTask(Pomodoro.POMODORO_TIME_IN_MILLIS)
+                        setStoppedState()
                     }
                 }
             }
         }
         activity!!.registerReceiver(broadcastReceiver, intentFilter)
+    }
+
+    private fun setPlayingState() {
+        fabPlayStop.tag = "STOP"
+        fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
     }
 
     fun startCountDownTimer() {
