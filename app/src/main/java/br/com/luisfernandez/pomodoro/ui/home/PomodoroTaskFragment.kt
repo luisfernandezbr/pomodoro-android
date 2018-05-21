@@ -42,7 +42,7 @@ class PomodoroTaskFragment : Fragment() {
                 "PLAY" -> {
                     startCountDownTimer()
                     fabPlayStop.tag = "STOP"
-                    fabPlayStop.setImageResource(android.R.drawable.ic_media_pause)
+                    fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
                 }
                 else -> {
                     timer?.cancel()
@@ -56,7 +56,7 @@ class PomodoroTaskFragment : Fragment() {
                             )
                     )
                     fabPlayStop.tag = "PLAY"
-                    fabPlayStop.setImageResource(android.R.drawable.ic_media_play)
+                    fabPlayStop.setImageResource(R.drawable.icon_play_white_24dp)
                 }
             }
         }
