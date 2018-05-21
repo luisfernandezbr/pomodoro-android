@@ -92,7 +92,7 @@ class PomodoroTaskFragment : Fragment() {
                         textTimer.text = timeInText
 
                         currentCount = current
-                        
+
                         setPlayingState()
                     }
                     ACTION_ON_FINISH -> {
