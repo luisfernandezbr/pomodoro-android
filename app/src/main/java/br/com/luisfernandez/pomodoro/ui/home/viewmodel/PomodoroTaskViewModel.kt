@@ -52,7 +52,7 @@ class PomodoroTaskViewModel : ViewModel() {
 
                 itemListContent.finishedDate = formattedDate
 
-                var date = SimpleDateFormat("dd/MM/yyyy HH", Locale.getDefault()).format(pomodoroTask.finishedDateTime)
+                var date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pomodoroTask.finishedDateTime)
 
                 if (lastDate == null || lastDate != date) {
                     val itemListTitle = ItemListTitle()
