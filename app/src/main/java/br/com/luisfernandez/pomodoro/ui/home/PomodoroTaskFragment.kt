@@ -88,4 +88,11 @@ class PomodoroTaskFragment : Fragment() {
         textTimer.textColor = resources.getColor(R.color.color_text_timer_running)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (timer != null) {
+            timer!!.cancel()
+        }
+    }
+
 }
