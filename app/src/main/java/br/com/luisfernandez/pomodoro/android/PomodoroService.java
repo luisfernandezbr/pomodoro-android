@@ -9,7 +9,10 @@ import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.style.EasyEditSpan;
 import android.util.Log;
+
+import com.iamhabib.easy_preference.EasyPreference;
 
 import br.com.luisfernandez.pomodoro.Pomodoro;
 
@@ -59,6 +62,12 @@ public class PomodoroService extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
         Log.d(TAG, "onTaskRemoved: ");
+
+        if (currentCounter > -1) {
+            EasyPreference.with(getApplicationContext())
+                    .addLong("current_value", currentCounter)
+                    .save();
+        }
     }
 
     @Override
@@ -80,14 +89,39 @@ public class PomodoroService extends Service {
     }
 
     private CountDownTimer countDownTimer;
+    private long currentCounter;
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+        Log.d(TAG, "onStart: ");
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        countDownTimer = new CountDownTimer(Pomodoro.POMODORO_TIME_IN_MILLIS, Pomodoro.TIMER_COUNT_INTERVAL) {
+        Log.d(TAG, "onCreate: ");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand: ");
+
+
+        final long persistedValue = EasyPreference.with(getApplicationContext()).getLong("current_value", -1);
+
+        long startAt = Pomodoro.POMODORO_TIME_IN_MILLIS;
+
+        if (persistedValue > -1) {
+            startAt = persistedValue;
+        }
+
+        countDownTimer = new CountDownTimer(startAt, Pomodoro.TIMER_COUNT_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 Log.d(TAG, "onTick: " + millisUntilFinished);
+
+                currentCounter = millisUntilFinished;
 
                 Intent intent = new Intent(ACTION_ON_TICK);
                 intent.putExtra("current_time", millisUntilFinished);
@@ -97,20 +131,20 @@ public class PomodoroService extends Service {
             @Override
             public void onFinish() {
                 Log.d(TAG, "onFinish: ");
+                currentCounter = -1;
+
+                EasyPreference.with(getApplicationContext()).clearAll().save();
+
                 Intent intent = new Intent(ACTION_ON_FINISH);
                 sendBroadcast(intent);
                 stopSelf();
+
             }
         };
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand: ");
-
         countDownTimer.start();
 
 
-        return START_NOT_STICKY;
+        return START_STICKY;
+        //return START_NOT_STICKY;
     }
 }

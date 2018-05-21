@@ -3,28 +3,24 @@ package br.com.luisfernandez.pomodoro.ui.home
 import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.luisfernandez.pomodoro.Pomodoro
-
 import br.com.luisfernandez.pomodoro.R
-import br.com.luisfernandez.pomodoro.entity.PomodoroTask
-import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
-import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
-import org.jetbrains.anko.imageResource
-import org.jetbrains.anko.textColor
-import java.util.*
-import android.content.Intent
-import android.content.IntentFilter
 import br.com.luisfernandez.pomodoro.android.PomodoroService
 import br.com.luisfernandez.pomodoro.android.PomodoroService.ACTION_ON_FINISH
 import br.com.luisfernandez.pomodoro.android.PomodoroService.ACTION_ON_TICK
-import org.jetbrains.anko.support.v4.stopService
+import br.com.luisfernandez.pomodoro.entity.PomodoroTask
+import br.com.luisfernandez.pomodoro.ui.home.viewmodel.PomodoroTaskViewModel
+import kotlinx.android.synthetic.main.fragment_pomodoro_task.*
+import org.jetbrains.anko.textColor
+import java.util.*
 
 
 class PomodoroTaskFragment : Fragment() {
@@ -91,6 +87,8 @@ class PomodoroTaskFragment : Fragment() {
 
                         Log.d("", timeInText)
                         textTimer.text = timeInText
+                        fabPlayStop.tag = "STOP"
+                        fabPlayStop.setImageResource(R.drawable.icon_stop_white_24dp)
                     }
                     ACTION_ON_FINISH -> {
                         textTimer.text = "01:00"
