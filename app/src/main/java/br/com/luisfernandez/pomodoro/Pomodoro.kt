@@ -6,6 +6,7 @@ class Pomodoro {
     companion object {
         const val POMODORO_TIME_IN_MILLIS = 60 * 1000L
         const val TIMER_COUNT_INTERVAL = 1000L
+        const val INTERVAL_TO_SHOW_NORMAL_TIME = 1000 * 60 * 60 * 3
 
         fun getFormattedTime(timeInMillis: Long): String {
             val toMinutes = TimeUnit.MILLISECONDS.toMinutes(timeInMillis)
